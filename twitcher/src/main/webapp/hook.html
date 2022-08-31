@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    import React, { useState } from 'react';
+
+    function StateHook(props) {
+        const [count, setCount] = useState(0);
+        const [hidden, setHidden] = useState(false);
+        const [steps, setSteps] = useState(0);
+
+        return (
+            <div>
+                <h1>Clicked { count } times!!</h1>
+                <button onClick={() => setCount(count + 100)}>+</button>
+
+                <hr/>
+                <div>
+                    <h2>Today you've taken { steps } steps!</h2>
+                    <button onClick={increment}>I took another step</button>
+                </div>
+
+                <hr/>
+                <button onClick={() => { setHidden(preState => !preState)}}>
+                    Click to see me
+                </button>
+                {
+                    hidden ? <h2>haha</h2> : null
+                }
+            </div>
+        );
+
+        function increment() {
+            setSteps(preState => preState + 1)
+        }
+    }
+    export default StateHook;
+
+
+    ReactDOM.render(
+        <Statehook />,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class App extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                isShow : false,
+                a : 100
+            }
+        }
+
+        render() {
+            return <div>
+                <p>this is Parent Component</p>
+
+                <div>
+                    <button onClick={ () => {
+                        this.setState({isShow : !this.state.isShow})
+                    }}
+                    >click me to show/hide child</button>
+                </div>
+
+                <div>
+                    <button onClick={() => {
+                        this.setState({
+                            a : this.state.a+10
+                        })
+                    }}>click to add 10</button>
+                </div>
+
+                <hr />
+                {
+                    this.state.isShow ? <Child num={this.state.a}/> : null
+                }
+            </div>
+        }
+    }
+
+    class Child extends React.Component {
+        constructor() {
+            super();
+
+            this.state = {
+                data : 888
+            }
+            console.log("1. constructor ");
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            console.log("--- updating --- 5. componentDidUpdate");
+            console.log("--- updating --- 5. prevProps ", prevProps);
+            console.log("--- updating --- 5. prevState ", prevState);
+            console.log("--- updating --- 5. snapshot ", snapshot);
+        }
+
+        render() {
+            console.log("--- mounting/updating --- 3. render ");
+            return <div>
+                <p>this is Child Component</p>
+                <p>number from Parent { this.props.num }</p>
+                <p>data is from child itself { this.state.data }</p>
+
+                <div>
+                    <button onClick={
+                        () => {
+                            this.setState({
+                                data: this.state.data + 10
+                            })
+                        }
+                    }>click add 10 on child</button>
+                </div>
+            </div>
+        }
+
+        componentDidMount() {
+            console.log("4. componentDidMount ")
+        }
+
+        componentWillUnmount() {
+            console.log("--- unmount --- ")
+        }
+    }
+
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="twitcher:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>twitcher</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="twitcher-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="twitcher:war exploded" />
+    </root>
+  </artifact>
+</component>
